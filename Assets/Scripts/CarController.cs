@@ -7,16 +7,19 @@ public class CarController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float steeringAngle;
+    private bool breaking = false;
 
     public WheelCollider frontRightCollider, frontLeftCollider, rearRightCollider, rearLeftCollider;
     public Transform frontRightTransform, frontLeftTransform, rearRightTransform, rearLeftTransform;
     public float maxSteerAngle = 30;
-    public float motorForce = 50;
+    public float motorForce = 80;
+    public float breakingForce = 40;
 
     public void GetInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+        breaking = Input.GetKey(KeyCode.Space);
     }
 
     private void Steer()
@@ -24,6 +27,22 @@ public class CarController : MonoBehaviour
         steeringAngle = maxSteerAngle * horizontalInput;
         frontRightCollider.steerAngle = steeringAngle;
         frontLeftCollider.steerAngle = steeringAngle;
+    }
+
+    private void Brake()
+    {
+        if (breaking)
+        {
+            breakingForce = 40;
+        }
+        else
+        {
+            breakingForce = 0;
+        }
+        frontLeftCollider.brakeTorque = breakingForce;
+        frontRightCollider.brakeTorque = breakingForce;
+        rearLeftCollider.brakeTorque = breakingForce;
+        rearRightCollider.brakeTorque = breakingForce;
     }
 
     private void Accelerate()
@@ -52,9 +71,11 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(breaking);
         GetInput();
         Steer();
         Accelerate();
+        Brake();
         UpdateWheelPoses();
     }
 
