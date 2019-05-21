@@ -69,7 +69,7 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(breaking);
+        //Debug.Log(breaking);
         GetInput();
         Steer();
         Accelerate();
