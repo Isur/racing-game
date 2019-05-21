@@ -2647,6 +2647,7 @@ GameObject:
   - component: {fileID: 3325850704870832641}
   - component: {fileID: 3325850704870832640}
   - component: {fileID: 3325850704870832642}
+  - component: {fileID: 3325850704870832643}
   m_Layer: 0
   m_Name: Classic_16
   m_TagString: Untagged
@@ -2706,6 +2707,20 @@ MonoBehaviour:
   maxSteerAngle: 30
   motorForce: 50
   breakingForce: 40
+--- !u!114 &3325850704870832643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3325850704870832639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20b783b2c4efc9408f2a63fe4a4afd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SensorAngle: 45
+  SensorLength: 1000
 --- !u!23 &3325850704872761121
 MeshRenderer:
   m_ObjectHideFlags: 0
