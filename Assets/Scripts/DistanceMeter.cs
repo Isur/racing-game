@@ -2,6 +2,8 @@
 
 public class DistanceMeter : MonoBehaviour
 {
+    public Vector3 StartPosition;
+
     public float SensorAngle = 45f;
     public float SensorLength = 1000f;
 
@@ -21,26 +23,34 @@ public class DistanceMeter : MonoBehaviour
         RaycastHit leftHit;
         RaycastHit rightHit;
 
-        Vector3 frontSensorStartPosition = transform.position;
-        Vector3 leftSensorStartPosition = transform.position;
-        Vector3 rightSensorStartPosition = transform.position;
+        Vector3 frontSensorStartPosition = transform.position + StartPosition;
+        Vector3 leftSensorStartPosition = transform.position + StartPosition;
+        Vector3 rightSensorStartPosition = transform.position + StartPosition;
 
-        if (Physics.Raycast(frontSensorStartPosition, Quaternion.AngleAxis(0, transform.up) * transform.forward, out frontHit, SensorLength))
+        DistanceFront = GetDistance(frontSensorStartPosition, 0);
+        DistanceLeft = GetDistance(leftSensorStartPosition, -SensorAngle);
+        DistanceRight = GetDistance(rightSensorStartPosition, SensorAngle);
+    }
+
+    private float GetDistance(Vector3 sensorStartPosition, float sensorAngle)
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(sensorStartPosition, Quaternion.AngleAxis(sensorAngle, transform.up) * transform.forward, out hit, SensorLength))
         {
-            DistanceFront = Vector3.Distance(frontSensorStartPosition, frontHit.point);
-            Debug.DrawLine(frontSensorStartPosition, frontHit.point);
+            var distance = Vector3.Distance(sensorStartPosition, hit.point);
+            var color = Color.red;
+
+            if (hit.collider.gameObject.tag == "Car")
+            {
+                distance *= -1;
+                color = Color.blue;
+            }
+
+            Debug.DrawLine(sensorStartPosition, hit.point, color);
+            return distance;
         }
 
-        if (Physics.Raycast(leftSensorStartPosition, Quaternion.AngleAxis(-SensorAngle, transform.up) * transform.forward, out leftHit, SensorLength))
-        {
-            DistanceLeft = Vector3.Distance(leftSensorStartPosition, leftHit.point);
-            Debug.DrawLine(leftSensorStartPosition, leftHit.point);
-        }
-
-        if (Physics.Raycast(rightSensorStartPosition, Quaternion.AngleAxis(SensorAngle, transform.up) * transform.forward, out rightHit, SensorLength))
-        {
-            DistanceRight = Vector3.Distance(rightSensorStartPosition, rightHit.point);
-            Debug.DrawLine(rightSensorStartPosition, rightHit.point);
-        }
+        return SensorLength;
     }
 }
