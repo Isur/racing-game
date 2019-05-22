@@ -1633,7 +1633,7 @@ MonoBehaviour:
   rearRightTransform: {fileID: 1924918783378163247}
   rearLeftTransform: {fileID: 497723096406887720}
   maxSteerAngle: 30
-  motorForce: 80
+  motorForce: 50
   breakingForce: 40
 --- !u!1 &5425999595477390462
 GameObject:

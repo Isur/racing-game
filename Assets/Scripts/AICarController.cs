@@ -12,8 +12,8 @@ public class AICarController : CarController
 
     void Start()
     {
-        var layers = new int[] { 4, 3, 3, 2 };
-        NeuralNetwork = new NeuralNetwork(layers);
+        NeuralNetwork = new NeuralNetwork(new int[] { 1, 1 });
+        NeuralNetwork.Load();
 
         DistanceMeter = GetComponent<DistanceMeter>();
         RigidBody = GetComponent<Rigidbody>();
