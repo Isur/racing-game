@@ -19,10 +19,6 @@ public class DistanceMeter : MonoBehaviour
 
     private void GetDistances()
     {
-        RaycastHit frontHit;
-        RaycastHit leftHit;
-        RaycastHit rightHit;
-
         Vector3 frontSensorStartPosition = transform.position + StartPosition;
         Vector3 leftSensorStartPosition = transform.position + StartPosition;
         Vector3 rightSensorStartPosition = transform.position + StartPosition;

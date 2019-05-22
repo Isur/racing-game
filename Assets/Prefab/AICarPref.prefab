@@ -1609,7 +1609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20b783b2c4efc9408f2a63fe4a4afd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartPosition: {x: 0, y: 0.2, z: 0}
+  StartPosition: {x: 0, y: 0.3, z: 0}
   SensorAngle: 45
   SensorLength: 1000
 --- !u!114 &742635466796137332

@@ -8,6 +8,8 @@ public class AICarController : CarController
     DistanceMeter DistanceMeter { get; set; }
     Rigidbody RigidBody { get; set; }
 
+    Transform CheckpointTransform { get; set; }
+
     void Start()
     {
         var layers = new int[] { 4, 3, 3, 2 };
@@ -15,6 +17,8 @@ public class AICarController : CarController
 
         DistanceMeter = GetComponent<DistanceMeter>();
         RigidBody = GetComponent<Rigidbody>();
+
+        CheckpointTransform = null;
     }
 
     public override void GetInput()
@@ -29,5 +33,31 @@ public class AICarController : CarController
 
         horizontalInput = output[0];
         verticalInput = output[1];
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Checkpoint")
+            HandleCheckpoint(col);
+    }
+
+    private void HandleCheckpoint(Collider col)
+    {
+        if (CheckpointTransform == null)
+        {
+            CheckpointTransform = col.gameObject.transform;
+            NeuralNetwork.Fitness++;
+        }
+        else
+        {
+            var checkpoint = col.gameObject.GetComponentInParent<Checkpoint>();
+            var checkpointTransform = col.gameObject.transform;
+
+            if (checkpoint.GetNext(CheckpointTransform) == checkpointTransform)
+            {
+                CheckpointTransform = checkpointTransform;
+                NeuralNetwork.Fitness++;
+            }
+        }
     }
 }
