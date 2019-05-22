@@ -2,8 +2,8 @@
 
 public class CarController : MonoBehaviour
 {
-    private float horizontalInput;
-    private float verticalInput;
+    protected float horizontalInput;
+    protected float verticalInput;
     private float steeringAngle;
     private bool breaking = false;
 
@@ -13,7 +13,7 @@ public class CarController : MonoBehaviour
     public float motorForce = 80;
     public float breakingForce = 40;
 
-    public void GetInput()
+    public virtual void GetInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
