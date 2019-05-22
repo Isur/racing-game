@@ -15,12 +15,6 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public Transform GetNext(Transform current)
     {
         var currentIndex = Checkpoints.IndexOf(current);

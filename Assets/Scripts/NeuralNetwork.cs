@@ -13,6 +13,8 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     public Func<float, float> ActivationFunction { get; set; } = (x) => (float)Math.Tanh(x); //activation function
 
 
+    private NeuralNetwork() { }
+
     /// <summary>
     /// Initilizes and neural network with random weights
     /// </summary>
@@ -206,13 +208,15 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     /// <summary>
     /// Loades the network from existing save file
     /// </summary>
-    public void Load()
+    public static NeuralNetwork Load()
     {
         var model = Helper.Load();
-        Layers = model.Layers;
-        Neurons = model.Neurons;
-        Weights = model.Weights;
-        ActivationFunction = model.ActivationFunction;
+        var network = new NeuralNetwork();
+        network.Layers = model.Layers;
+        network.Neurons = model.Neurons;
+        network.Weights = model.Weights;
+        network.ActivationFunction = model.ActivationFunction;
+        return network;
     }
 
     /// <summary>

@@ -15,6 +15,8 @@ public class TrainingManager : MonoBehaviour
     public GameObject CarPrefab;
     public int NumberOfIterations;
     public int SecondsPerIteration;
+    public KeyCode SaveButton = KeyCode.S;
+    public float TimeScale = 1;
 
     private int Iteration { get; set; } = 0;
     private List<Vector3> StartingPositions { get; set; } = new List<Vector3>();
@@ -29,7 +31,6 @@ public class TrainingManager : MonoBehaviour
     void Start()
     {
         StartingPositions = GetStartingPositions();
-        Time.timeScale = 20;
     }
 
     private List<Vector3> GetStartingPositions()
@@ -50,7 +51,9 @@ public class TrainingManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        Time.timeScale = TimeScale;
+
+        if (Input.GetKeyDown(SaveButton))
         {
             if (BestNetwork != null)
                 BestNetwork.Save();
@@ -60,38 +63,30 @@ public class TrainingManager : MonoBehaviour
         {
             IsIterating = true;
 
-            if (Iteration == 0)
-                InitiateTraining();
-            else
-                SetupIteration();
+            var isFirstIteration = Iteration == 0;
+            SetupIteration(isFirstIteration);
 
             StartCoroutine(EndIteration());
         }
     }
 
-    private void InitiateTraining()
+    private void SetupIteration(bool first)
     {
         foreach (var position in StartingPositions)
         {
             var car = Instantiate(CarPrefab, position, Quaternion.Euler(0, 0, 0));
             Cars.Add(car);
 
-            var network = new NeuralNetwork(layers);
-            var carController = car.GetComponent<AICarController>();
-            carController.NeuralNetwork = network;
-            Networks.Add(network);
-        }
-    }
-
-    private void SetupIteration()
-    {
-        foreach (var position in StartingPositions)
-        {
-            var car = Instantiate(CarPrefab, position, Quaternion.Euler(0, 0, 0));
-            Cars.Add(car);
-
-            var network = new NeuralNetwork(BestNetwork);
-            network.Mutate();
+            NeuralNetwork network;
+            if (first)
+            {
+                network = new NeuralNetwork(layers);
+            }
+            else
+            {
+                network = new NeuralNetwork(BestNetwork);
+                network.Mutate();
+            }
 
             var carController = car.GetComponent<AICarController>();
             carController.NeuralNetwork = network;
@@ -103,20 +98,9 @@ public class TrainingManager : MonoBehaviour
     {
         yield return new WaitForSeconds(SecondsPerIteration);
 
-        Networks.Sort();
-        var currentBestNetwork = Networks.Last();
-        if (BestNetwork == null)
-            BestNetwork = currentBestNetwork;
-        else if (BestNetwork.Fitness < currentBestNetwork.Fitness)
-            BestNetwork = currentBestNetwork;
+        GetBestNetwork();
+        Clear();
 
-        foreach (var car in Cars)
-        {
-            Destroy(car);
-        }
-
-        Cars.Clear();
-        Networks.Clear();
 
         if (BestNetwork != null)
             Debug.Log(BestNetwork.Fitness);
@@ -125,6 +109,29 @@ public class TrainingManager : MonoBehaviour
         IsIterating = false;
 
         if (Iteration == NumberOfIterations)
+        {
             BestNetwork.Save();
+            Time.timeScale = 1;
+        }
+    }
+
+    private void GetBestNetwork()
+    {
+        Networks.Sort();
+        var currentBestNetwork = Networks.Last();
+        if (BestNetwork == null)
+            BestNetwork = currentBestNetwork;
+        else if (BestNetwork.Fitness < currentBestNetwork.Fitness)
+            BestNetwork = currentBestNetwork;
+    }
+
+    private void Clear()
+    {
+        foreach (var car in Cars)
+        {
+            Destroy(car);
+        }
+        Cars.Clear();
+        Networks.Clear();
     }
 }
