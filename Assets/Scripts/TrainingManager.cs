@@ -12,11 +12,20 @@ using UnityEngine;
 /// </summary>
 public class TrainingManager : MonoBehaviour
 {
-    public GameObject CarPrefab;
+    [Header("General")]
     public int NumberOfIterations;
     public int SecondsPerIteration;
     public KeyCode SaveButton = KeyCode.S;
     public float TimeScale = 1;
+    public bool UseCurrentBestNetwork;
+
+    [Header("Spawn")]
+    public GameObject CarPrefab;
+    public Vector3 Center;
+    public Vector3 Size;
+    public Vector3 StartRotation;
+    public int AgentsCount;
+    //public int Rows;
 
     private int Iteration { get; set; } = 0;
     private List<Vector3> StartingPositions { get; set; } = new List<Vector3>();
@@ -37,14 +46,13 @@ public class TrainingManager : MonoBehaviour
     {
         var result = new List<Vector3>();
 
-        var start = 40f;
-        var end = 60f;
-        var count = 10f;
+        var start = Center.x - Size.x / 2;
+        var end = Center.x + Size.x / 2;
         var range = end - start;
-        var bit = range / count;
+        var bit = range / AgentsCount;
 
-        for (var i = 0; i < count; i++)
-            result.Add(new Vector3(start + i * bit, 0f, 41.53f));
+        for (var i = 0; i < AgentsCount; i++)
+            result.Add(new Vector3(start + i * bit, Center.y, Center.z));
 
         return result;
     }
@@ -72,15 +80,19 @@ public class TrainingManager : MonoBehaviour
 
     private void SetupIteration(bool first)
     {
+        StartingPositions = GetStartingPositions();
         foreach (var position in StartingPositions)
         {
-            var car = Instantiate(CarPrefab, position, Quaternion.Euler(0, 0, 0));
+            var car = Instantiate(CarPrefab, position, Quaternion.Euler(StartRotation));
             Cars.Add(car);
 
             NeuralNetwork network;
             if (first)
             {
-                network = new NeuralNetwork(layers);
+                if (UseCurrentBestNetwork)
+                    network = NeuralNetwork.Load();
+                else
+                    network = new NeuralNetwork(layers);
             }
             else
             {
@@ -133,5 +145,11 @@ public class TrainingManager : MonoBehaviour
         }
         Cars.Clear();
         Networks.Clear();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(Center, Size);
     }
 }

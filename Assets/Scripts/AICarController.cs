@@ -12,7 +12,8 @@ public class AICarController : CarController
 
     void Start()
     {
-        NeuralNetwork = NeuralNetwork.Load();
+        if (NeuralNetwork == null)
+            NeuralNetwork = NeuralNetwork.Load();
 
         DistanceMeter = GetComponent<DistanceMeter>();
         RigidBody = GetComponent<Rigidbody>();

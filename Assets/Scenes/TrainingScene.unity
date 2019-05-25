@@ -153,6 +153,8 @@ MonoBehaviour:
     type: 3}
   NumberOfIterations: 100
   SecondsPerIteration: 60
+  SaveButton: 115
+  TimeScale: 1
 --- !u!4 &17013441
 Transform:
   m_ObjectHideFlags: 0
