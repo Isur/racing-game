@@ -1216,8 +1216,9 @@ GameObject:
   - component: {fileID: 4684687988485478282}
   - component: {fileID: 4684687988485478280}
   - component: {fileID: 4684687988485478281}
+  - component: {fileID: 104781407}
   m_Layer: 0
-  m_Name: Classic_16
+  m_Name: PlayerCarPref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1322,8 +1323,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20b783b2c4efc9408f2a63fe4a4afd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartPosition: {x: 0, y: 0, z: 0}
   SensorAngle: 45
   SensorLength: 1000
+--- !u!114 &104781407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684687988485477493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ff6b3301a466e48a1250504a410c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EngineSound: {fileID: 8300000, guid: 132c1515ea005404fb6144c976c99ed6, type: 3}
 --- !u!1 &4684687988485477495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,10 +2402,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Classic_16_Bumper_B_1
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: da242ed8934fb4c44a5521e9c39877a1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: da242ed8934fb4c44a5521e9c39877a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2450,14 +2461,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4684687988485048405}
     m_Modifications:
-    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
-      propertyPath: m_Name
-      value: Classic_16_Bumper_F_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2502,6 +2505,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
+      propertyPath: m_Name
+      value: Classic_16_Bumper_F_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
 --- !u!4 &8008686016098525144 stripped
@@ -2520,10 +2527,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
       propertyPath: m_Name
       value: Classic_16_SidePanel_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
       propertyPath: m_LocalPosition.x

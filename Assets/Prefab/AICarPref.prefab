@@ -1526,6 +1526,7 @@ GameObject:
   - component: {fileID: 5425999595477391235}
   - component: {fileID: 5425999595477391232}
   - component: {fileID: 742635466796137332}
+  - component: {fileID: 2646950708617831111}
   m_Layer: 0
   m_Name: AICarPref
   m_TagString: Car
@@ -1635,6 +1636,19 @@ MonoBehaviour:
   maxSteerAngle: 30
   motorForce: 50
   breakingForce: 40
+--- !u!114 &2646950708617831111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425999595477390460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ff6b3301a466e48a1250504a410c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EngineSound: {fileID: 8300000, guid: 132c1515ea005404fb6144c976c99ed6, type: 3}
 --- !u!1 &5425999595477390462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,14 +2398,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5425999595476895836}
     m_Modifications:
-    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
-      propertyPath: m_Name
-      value: Classic_16_Bumper_F_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2436,6 +2442,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
+      propertyPath: m_Name
+      value: Classic_16_Bumper_F_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
 --- !u!4 &7307880369176469457 stripped
@@ -2454,10 +2464,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
       propertyPath: m_Name
       value: Classic_16_SidePanel_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b31fe8ace34d7949a4276014bddf5f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2521,10 +2527,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: da242ed8934fb4c44a5521e9c39877a1, type: 3}
       propertyPath: m_Name
       value: Classic_16_Bumper_B_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: da242ed8934fb4c44a5521e9c39877a1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: da242ed8934fb4c44a5521e9c39877a1, type: 3}
       propertyPath: m_LocalPosition.x
