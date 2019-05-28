@@ -6,17 +6,17 @@ public class AICarController : CarController
 {
     public NeuralNetwork NeuralNetwork { get; set; }
     DistanceMeter DistanceMeter { get; set; }
-    Rigidbody RigidBody { get; set; }
 
     Transform CheckpointTransform { get; set; }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (NeuralNetwork == null)
             NeuralNetwork = NeuralNetwork.Load();
 
         DistanceMeter = GetComponent<DistanceMeter>();
-        RigidBody = GetComponent<Rigidbody>();
 
         CheckpointTransform = null;
     }
