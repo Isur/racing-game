@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[RequireComponent(typeof(CarAudio))]
 public class CarController : MonoBehaviour
 {
     protected float horizontalInput;
@@ -7,11 +9,20 @@ public class CarController : MonoBehaviour
     private float steeringAngle;
     private bool breaking = false;
 
+    private CarAudio CarAudio { get; set; }
+    protected Rigidbody RigidBody { get; set; }
+
     public WheelCollider frontRightCollider, frontLeftCollider, rearRightCollider, rearLeftCollider;
     public Transform frontRightTransform, frontLeftTransform, rearRightTransform, rearLeftTransform;
     public float maxSteerAngle = 30;
     public float motorForce = 80;
     public float breakingForce = 40;
+
+    protected virtual void Start()
+    {
+        CarAudio = GetComponent<CarAudio>();
+        RigidBody = GetComponent<Rigidbody>();
+    }
 
     public virtual void GetInput()
     {
@@ -67,6 +78,13 @@ public class CarController : MonoBehaviour
         _transform.rotation = _quat;
     }
 
+    private void UpdateSounds()
+    {
+        var percentage = RigidBody.velocity.magnitude / 5f;
+        var pitch = (float)Math.Tanh(percentage) + 0.2f;
+        CarAudio.SetEngineSoundPitch(pitch);
+    }
+
     private void FixedUpdate()
     {
         //Debug.Log(breaking);
@@ -75,7 +93,14 @@ public class CarController : MonoBehaviour
         Accelerate();
         Brake();
         UpdateWheelPoses();
+        UpdateSounds();
     }
 
-
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag != "Terrain")
+        {
+            CarAudio.PlayCrash();
+        }
+    }
 }
