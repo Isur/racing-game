@@ -3,17 +3,37 @@
 public class CarAudio : MonoBehaviour
 {
     public AudioClip EngineSound;
+    public AudioClip CrashSound;
 
     private AudioSource EngineAudioSource { get; set; }
+    private AudioSource CrashAudioSource { get; set; }
 
-    // Start is called before the first frame update
     void Start()
     {
+        SetupEngineAudioSource();
+        SetupCrashAudioSource();
+    }
+
+    private void SetupEngineAudioSource()
+    {
+
         EngineAudioSource = gameObject.AddComponent<AudioSource>();
-        EngineAudioSource.clip = EngineSound;
-        EngineAudioSource.loop = true;
-        EngineAudioSource.playOnAwake = true;
-        EngineAudioSource.Play();
+        var eas = EngineAudioSource;
+        eas.clip = EngineSound;
+        eas.loop = true;
+        eas.spatialBlend = 1f;
+        eas.playOnAwake = true;
+        eas.maxDistance = 50;
+        eas.Play();
+    }
+
+    private void SetupCrashAudioSource()
+    {
+        CrashAudioSource = gameObject.AddComponent<AudioSource>();
+        var cas = CrashAudioSource;
+        cas.clip = CrashSound;
+        cas.maxDistance = 50;
+        cas.spatialBlend = 1f;
     }
 
     void Update()
@@ -24,5 +44,10 @@ public class CarAudio : MonoBehaviour
     public void SetEngineSoundPitch(float value)
     {
         EngineAudioSource.pitch = value;
+    }
+
+    public void PlayCrash()
+    {
+        CrashAudioSource.Play();
     }
 }

@@ -96,5 +96,11 @@ public class CarController : MonoBehaviour
         UpdateSounds();
     }
 
-
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag != "Terrain")
+        {
+            CarAudio.PlayCrash();
+        }
+    }
 }

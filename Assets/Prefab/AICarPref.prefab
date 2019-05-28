@@ -1649,6 +1649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineSound: {fileID: 8300000, guid: 132c1515ea005404fb6144c976c99ed6, type: 3}
+  CrashSound: {fileID: 8300000, guid: 9074a66893b616a49b61adf704627844, type: 3}
 --- !u!1 &5425999595477390462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,6 +2399,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5425999595476895836}
     m_Modifications:
+    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
+      propertyPath: m_Name
+      value: Classic_16_Bumper_F_1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2441,10 +2446,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
-      propertyPath: m_Name
-      value: Classic_16_Bumper_F_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb2d09a3b917b54b9a3ad69add70edd, type: 3}
