@@ -9,17 +9,13 @@ public class MenuButton : MonoBehaviour
     [SerializeField] AnimatorFunctions animatorFunctions;
     [SerializeField] int thisIndex;
     private bool _wait = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void buttonPressed(int button){
         _wait = true;
         switch(button){
             case 0:
                 Debug.Log("PLAY");
+                Initiate.Fade("TrainingScene",Color.black,1.0f);
                 break;
             case 1:
                 Debug.Log("STORY");
@@ -33,7 +29,6 @@ public class MenuButton : MonoBehaviour
         }
         StartCoroutine(test());
     }
-    // Update is called once per frame
     void Update()
     {
         if(menuButtonController.index == thisIndex){
