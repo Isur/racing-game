@@ -24,6 +24,7 @@ public class CarAudio : MonoBehaviour
         eas.spatialBlend = 1f;
         eas.playOnAwake = true;
         eas.maxDistance = 50;
+        eas.pitch = 0f;
         eas.Play();
     }
 

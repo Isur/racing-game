@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(DistanceMeter))]
-[RequireComponent(typeof(Rigidbody))]
 public class AICarController : CarController
 {
     public NeuralNetwork NeuralNetwork { get; set; }
     DistanceMeter DistanceMeter { get; set; }
-
-    Transform CheckpointTransform { get; set; }
 
     protected override void Start()
     {
@@ -18,7 +15,7 @@ public class AICarController : CarController
 
         DistanceMeter = GetComponent<DistanceMeter>();
 
-        CheckpointTransform = null;
+        OnCheckpointEnter += delegate { NeuralNetwork.Fitness++; };
     }
 
     public override void GetInput()
@@ -33,31 +30,5 @@ public class AICarController : CarController
 
         horizontalInput = output[0];
         verticalInput = output[1];
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Checkpoint")
-            HandleCheckpoint(col);
-    }
-
-    private void HandleCheckpoint(Collider col)
-    {
-        if (CheckpointTransform == null)
-        {
-            CheckpointTransform = col.gameObject.transform;
-            NeuralNetwork.Fitness++;
-        }
-        else
-        {
-            var checkpoint = col.gameObject.GetComponentInParent<Checkpoint>();
-            var checkpointTransform = col.gameObject.transform;
-
-            if (checkpoint.GetNext(CheckpointTransform) == checkpointTransform)
-            {
-                CheckpointTransform = checkpointTransform;
-                NeuralNetwork.Fitness++;
-            }
-        }
     }
 }

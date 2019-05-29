@@ -4,6 +4,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     private List<Transform> Checkpoints { get; set; } = new List<Transform>();
+    public int CheckpointsCount { get { return Checkpoints.Count; } }
 
     // Start is called before the first frame update
     void Start()

@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CarAudio))]
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     protected float horizontalInput;
@@ -18,10 +19,18 @@ public class CarController : MonoBehaviour
     public float motorForce = 80;
     public float breakingForce = 40;
 
+    public EventHandler OnCheckpointEnter { get; set; }
+    protected Transform CheckpointTransform { get; set; }
+    public int CheckpointEnteredCount { get; protected set; } = 0;
+
     protected virtual void Start()
     {
         CarAudio = GetComponent<CarAudio>();
         RigidBody = GetComponent<Rigidbody>();
+
+        CheckpointTransform = null;
+
+        OnCheckpointEnter += delegate { CheckpointEnteredCount++; };
     }
 
     public virtual void GetInput()
@@ -87,7 +96,6 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log(breaking);
         GetInput();
         Steer();
         Accelerate();
@@ -101,6 +109,32 @@ public class CarController : MonoBehaviour
         if (col.gameObject.tag != "Terrain")
         {
             CarAudio.PlayCrash();
+        }
+    }
+
+    protected virtual void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Checkpoint")
+            HandleCheckpoint(col);
+    }
+
+    private void HandleCheckpoint(Collider col)
+    {
+        if (CheckpointTransform == null)
+        {
+            CheckpointTransform = col.gameObject.transform;
+            OnCheckpointEnter?.Invoke(this, new EventArgs());
+        }
+        else
+        {
+            var checkpoint = col.gameObject.GetComponentInParent<Checkpoint>();
+            var checkpointTransform = col.gameObject.transform;
+
+            if (checkpoint.GetNext(CheckpointTransform) == checkpointTransform)
+            {
+                CheckpointTransform = checkpointTransform;
+                OnCheckpointEnter?.Invoke(this, new EventArgs());
+            }
         }
     }
 }
