@@ -11,10 +11,13 @@ public class RaceController : MonoBehaviour
     public SoundController SoundController;
     public TextMeshProUGUI CountdownTextMesh;
     public TextMeshProUGUI LapTextMesh;
+    public TextMeshProUGUI FinishMesh;
 
     private int RaceCheckpointCount { get; set; }
     private CarController[] Cars { get; set; }
     private int FinishedCarsCount { get; set; }
+
+    private NumberEnding NumberEnding { get; set; } = new NumberEnding();
 
     void Start()
     {
@@ -80,6 +83,8 @@ public class RaceController : MonoBehaviour
                     SoundController.PlayWin();
                 else
                     SoundController.PlayLoose();
+
+                FinishMesh.text = $"Congratulations you took {FinishedCarsCount}{NumberEnding.Calculate(FinishedCarsCount)} place!";
             }
         }
         else
