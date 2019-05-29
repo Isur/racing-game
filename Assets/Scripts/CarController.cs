@@ -21,7 +21,7 @@ public class CarController : MonoBehaviour
 
     public EventHandler OnCheckpointEnter { get; set; }
     protected Transform CheckpointTransform { get; set; }
-    public int CheckpointEnteredCount { get; protected set; } = 0;
+    public int CheckpointEnteredCount { get; protected set; } = -1;
 
     protected virtual void Start()
     {
