@@ -6,8 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Simple Scene Fade Load System/Demo (You don't have to import this
-      folder)/Scenes/Level1.unity
+    path: 
     guid: a3f87ead8e380db49b0b4f50cfb95290
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
@@ -15,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Sandbox/TrainingScene.unity
     guid: 3c9eebaaaa5c99445bb13d89641f9166
+  - enabled: 1
+    path: Assets/Scenes/FirstTour.unity
+    guid: 510cb1303f2e34543beb91df98d844bf
   m_configObjects: {}

@@ -85,6 +85,7 @@ public class RaceController : MonoBehaviour
                     SoundController.PlayLoose();
 
                 FinishMesh.text = $"Congratulations you took {FinishedCarsCount}{NumberEnding.Calculate(FinishedCarsCount)} place!";
+                StartCoroutine(GoBackToMenu());
             }
         }
         else
@@ -97,6 +98,12 @@ public class RaceController : MonoBehaviour
                 LapTextMesh.text = GetLapsInTotal(lap);
             }
         }
+    }
+
+    private IEnumerator GoBackToMenu()
+    {
+        yield return new WaitForSeconds(5);
+        Initiate.Fade("MainMenu", Color.black, 1.0f);
     }
 
     private string GetLapsInTotal(int lap) { return $"Laps: {lap}/{LapsCount}"; }
