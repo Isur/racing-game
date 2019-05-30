@@ -29,8 +29,6 @@ public class CarController : MonoBehaviour
         RigidBody = GetComponent<Rigidbody>();
 
         CheckpointTransform = null;
-
-        OnCheckpointEnter += delegate { CheckpointEnteredCount++; };
     }
 
     public virtual void GetInput()
@@ -123,6 +121,7 @@ public class CarController : MonoBehaviour
         if (CheckpointTransform == null)
         {
             CheckpointTransform = col.gameObject.transform;
+            CheckpointEnteredCount++;
             OnCheckpointEnter?.Invoke(this, new EventArgs());
         }
         else
@@ -133,6 +132,7 @@ public class CarController : MonoBehaviour
             if (checkpoint.GetNext(CheckpointTransform) == checkpointTransform)
             {
                 CheckpointTransform = checkpointTransform;
+                CheckpointEnteredCount++;
                 OnCheckpointEnter?.Invoke(this, new EventArgs());
             }
         }
