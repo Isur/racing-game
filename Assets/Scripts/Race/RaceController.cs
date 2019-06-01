@@ -3,7 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using static TransitionScenes;
 public class RaceController : MonoBehaviour
 {
     [Range(1, 10)]
@@ -26,10 +26,10 @@ public class RaceController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(GotoMenuKey))
-            Initiate.Fade("MainMenu", Color.black, 1.0f);
+            SceneTransition("MainMenu");
 
         if (Input.GetKey(RestartKey))
-            Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 1.0f);
+            SceneTransition(SceneManager.GetActiveScene().name);
     }
 
     void Start()
@@ -116,7 +116,7 @@ public class RaceController : MonoBehaviour
     private IEnumerator GoBackToMenu()
     {
         yield return new WaitForSeconds(5);
-        Initiate.Fade("MainMenu", Color.black, 1.0f);
+        SceneTransition("MainMenu");
     }
 
     private string GetLapsInTotal(int lap) { return $"Laps: {lap}/{LapsCount}"; }

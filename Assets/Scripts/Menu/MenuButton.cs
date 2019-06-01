@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using static TransitionScenes;
 
 public class MenuButton : MonoBehaviour
 {
@@ -20,11 +21,11 @@ public class MenuButton : MonoBehaviour
         {
             case 0:
                 Debug.Log("PLAY");
-                Initiate.Fade("MapSelector", Color.black, 1.0f);
+                SceneTransition("MapSelector");
                 break;
             case 1:
                 Debug.Log("STORY");
-                Initiate.Fade("Story", Color.black, 1.0f);
+                SceneTransition("Story");
                 break;
             case 2:
                 Debug.Log("OPTIONS");

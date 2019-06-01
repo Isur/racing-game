@@ -1,68 +1,62 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static TransitionScenes;
 
-public class MapSelector : MonoBehaviour
-{
-    public KeyCode  nextMap = KeyCode.RightArrow,
-                    prevMap = KeyCode.LeftArrow,
-                    submit = KeyCode.Return,
-                    esc = KeyCode.Escape;
-    [SerializeField]
-    Animation animationClick;
-    [SerializeField]
-    int thisIndex;
-    
+public class MapSelector: MonoBehaviour{
+    public List<Sprite> RaceImages = new List<Sprite>();
+    public List<string> RaceSceneNames = new List<string>();
+    public MapSelectorButton ButtonRight;
+    public MapSelectorButton ButtonLeft;
 
-    public AudioSource Audio;
-    public AudioClip ClickSound;
-    public Image Slider;
-    public List<Image> RaceImages = new List<Image>();
-    public List<string> RaceNames = new List<string>();
-
+    private Image Slider;
     private bool _wait = false;
-    private int _currentScene = 0;
-
-    void Start() {
-        Slider.sprite = RaceImages[0].sprite;   
+    private int _selectedRace = 0;
+    private void Start() {
+        if(RaceImages.Count != RaceSceneNames.Count){
+            Debug.Log("You have to provide image and name for each race.");
+            return;
+        }
+        Slider = GetComponent<Image>();
+        Slider.sprite = RaceImages[_selectedRace];
     }
-    void Update()
-    {
-        if(!_wait && Input.GetKeyDown(nextMap)){
-            ChangeMap(1);
-        } else if(!_wait && Input.GetKeyDown(prevMap)){
-            ChangeMap(0);
-        } else if (Input.GetKeyDown(submit)){
-            Initiate.Fade(RaceNames[_currentScene], Color.black, 1.0f);
-        } else if (Input.GetKeyDown(esc)){
-            Initiate.Fade("MainMenu", Color.black, 1.0f);
+    
+    private void Update() {
+        float horizontal = Input.GetAxis("Horizontal");
+        if(!_wait && horizontal != 0){
+            ChangeMap(horizontal);    
+        } else if (Input.GetAxis("Submit") == 1 && !_wait){
+            SceneTransition(RaceSceneNames[_selectedRace]);
+        } else if (Input.GetAxis("Cancel") == 1 && !_wait){
+            SceneTransition("MainMenu");
         }
     }
 
-    private void ChangeMap(int dir){
-         _wait = true;
-         Audio.PlayOneShot(ClickSound);
-        if(thisIndex == dir) animationClick.Play("Click");
-        if(dir == 1){
-            if(_currentScene + 1 < RaceNames.Count){
-                _currentScene++;
+    private void ChangeMap(float dir){
+        int count = RaceSceneNames.Count;
+        _wait = true;
+        if(dir < 0){
+            ButtonLeft.click();
+            if(_selectedRace > 0){
+                _selectedRace--;
             } else {
-                _currentScene = 0;
+                _selectedRace = count - 1;
             }
-        } else if (dir == 0){
-            if(_currentScene > 0){
-                _currentScene--;
+        } else if (dir > 0){
+            ButtonRight.click();
+            if(_selectedRace + 1 < count){
+                _selectedRace++;
             } else {
-                _currentScene = RaceNames.Count - 1;
+                _selectedRace = 0;
             }
         }
-        Slider.sprite = RaceImages[_currentScene].sprite;
-        StartCoroutine(buttonClick());
+        StartCoroutine(Unblock());
+        Slider.sprite = RaceImages[_selectedRace];
     }
 
-    IEnumerator buttonClick(){
-        yield return new WaitForSeconds(0.3f);
+    IEnumerator Unblock(){
+        yield return new WaitForSeconds(0.6f);
         _wait = false;
     }
 }
