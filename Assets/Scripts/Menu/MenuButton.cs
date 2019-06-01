@@ -20,10 +20,11 @@ public class MenuButton : MonoBehaviour
         {
             case 0:
                 Debug.Log("PLAY");
-                Initiate.Fade("FirstTour", Color.black, 1.0f);
+                Initiate.Fade("MapSelector", Color.black, 1.0f);
                 break;
             case 1:
                 Debug.Log("STORY");
+                Initiate.Fade("Story", Color.black, 1.0f);
                 break;
             case 2:
                 Debug.Log("OPTIONS");
