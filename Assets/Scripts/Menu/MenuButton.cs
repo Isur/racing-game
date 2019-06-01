@@ -20,18 +20,16 @@ public class MenuButton : MonoBehaviour
         switch (button)
         {
             case 0:
-                Debug.Log("PLAY");
                 SceneTransition("MapSelector");
                 break;
             case 1:
-                Debug.Log("STORY");
                 SceneTransition("Story");
                 break;
             case 2:
                 Debug.Log("OPTIONS");
                 break;
             case 3:
-                Debug.Log("EXIT");
+                Application.Quit();
                 break;
         }
         StartCoroutine(test());
