@@ -92,8 +92,10 @@ public class RaceController : MonoBehaviour
 
             if (!(car is AICarController))
             {
-                if (FinishedCarsCount == 1)
+                if (FinishedCarsCount == 1){
                     SoundController.PlayWin();
+                    Save.update(SceneManager.GetActiveScene().name);
+                }
                 else
                     SoundController.PlayLoose();
 
