@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FirstTour.unity
     guid: 510cb1303f2e34543beb91df98d844bf
+  - enabled: 1
+    path: Assets/Scenes/Story.unity
+    guid: bc972c633c8d81a4d893be2da46401d9
+  - enabled: 1
+    path: Assets/Scenes/MapSelector.unity
+    guid: f2b06749053d74a4facdaaa800b8a0da
+  - enabled: 1
+    path: Assets/Scenes/SecondTour.unity
+    guid: 2a54d9e3a2c18204ca8754deaba4afb9
   m_configObjects: {}
