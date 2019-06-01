@@ -2,6 +2,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceController : MonoBehaviour
 {
@@ -13,11 +14,23 @@ public class RaceController : MonoBehaviour
     public TextMeshProUGUI LapTextMesh;
     public TextMeshProUGUI FinishMesh;
 
+    public KeyCode GotoMenuKey = KeyCode.Escape;
+    public KeyCode RestartKey = KeyCode.R;
+
     private int RaceCheckpointCount { get; set; }
     private CarController[] Cars { get; set; }
     private int FinishedCarsCount { get; set; }
 
     private NumberEnding NumberEnding { get; set; } = new NumberEnding();
+
+    void Update()
+    {
+        if (Input.GetKeyDown(GotoMenuKey))
+            Initiate.Fade("MainMenu", Color.black, 1.0f);
+
+        if (Input.GetKey(RestartKey))
+            Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 1.0f);
+    }
 
     void Start()
     {
