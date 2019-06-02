@@ -26,9 +26,6 @@ public class MenuButton : MonoBehaviour
                 SceneTransition("Story");
                 break;
             case 2:
-                Debug.Log("OPTIONS");
-                break;
-            case 3:
                 Application.Quit();
                 break;
         }
