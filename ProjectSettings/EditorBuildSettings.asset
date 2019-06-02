@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SecondTour.unity
     guid: 2a54d9e3a2c18204ca8754deaba4afb9
+  - enabled: 1
+    path: Assets/Scenes/ThirdTour.unity
+    guid: 478d16287fb9bb4499a802be68fcbe96
   m_configObjects: {}
